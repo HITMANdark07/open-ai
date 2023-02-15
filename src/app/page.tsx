@@ -109,7 +109,6 @@ export default function Home() {
                 <input
                   type="text"
                   autoComplete="false"
-                  disabled
                   autoCapitalize="false"
                   {...register("message", {
                     required: true,
