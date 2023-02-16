@@ -11,7 +11,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.body);
   try {
     const { data } = await openai.createImage({
       prompt: req.body.message,
@@ -20,7 +19,6 @@ export default async function handler(
     });
     return res.status(200).json(data);
   } catch (err) {
-    // console.log(err?.response?.data?.error);
     return res.status(400).json({
       message: "Something went Wrong",
     });

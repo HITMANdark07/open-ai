@@ -1,16 +1,21 @@
 import { format } from "date-fns";
+import Image from "next/image";
 import { useEffect } from "react";
+
+type MessageType = "text" | "image" | "link";
 
 interface ChatBubbbleProps {
   name: string;
   created_at: string;
   message: string;
+  messageType: MessageType;
   start?: boolean;
 }
 
 const ChatBubble = ({
   name,
   created_at,
+  messageType,
   message,
   start = false,
 }: ChatBubbbleProps) => {
@@ -27,7 +32,17 @@ const ChatBubble = ({
           </div>
         </div>
         <div className="chat-header text-gray-200 truncate">{name}</div>
-        <div className="chat-bubble bg-primary">{message}</div>
+        <div className="chat-bubble bg-primary">
+          {messageType == "image" && (
+            <Image src={message} alt="ai-img" width={256} height={256} />
+          )}
+          {messageType == "text" && message}
+          {messageType == "link" && (
+            <a target="_blank" rel="noreferrer" href={message}>
+              {message}
+            </a>
+          )}
+        </div>
         <div className="chat-footer opacity-50">
           <time className="text-xs px-1 text-gray-300">
             {format(new Date(created_at), "hh:mm")}
